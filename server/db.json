@@ -1,0 +1,25 @@
+{
+  "posts": [
+    { "id": "1", "title": "How to Get Started with React", "views": 1250 },
+    { "id": "2", "title": "The Future of AI in 2024", "views": 3200 },
+    { "id": "3", "title": "10 Tips for Better Sleep", "views": 890 },
+    { "id": "4", "title": "Why TypeScript is Worth Learning", "views": 2100 },
+    { "id": "5", "title": "Best Travel Destinations for 2024", "views": 1500 }
+  ],
+  "comments": [
+    { "id": "1", "text": "Great introduction! Helped me understand React basics.", "postId": "1" },
+    { "id": "2", "text": "Could you cover hooks in more detail?", "postId": "1" },
+    { "id": "3", "text": "AI advancements are both exciting and scary.", "postId": "2" },
+    { "id": "4", "text": "Do you think AI will replace developers?", "postId": "2" },
+    { "id": "5", "text": "Sleep tip #5 changed my life!", "postId": "3" },
+    { "id": "6", "text": "I still struggle with insomnia. Any extra advice?", "postId": "3" },
+    { "id": "7", "text": "TypeScript saved me so many debugging hours.", "postId": "4" },
+    { "id": "8", "text": "Is the learning curve worth it for small projects?", "postId": "4" },
+    { "id": "9", "text": "Japan should be on this list!", "postId": "5" },
+    { "id": "10", "text": "Has anyone been to Iceland? Worth the hype?", "postId": "5" }
+  ],
+  "profile": {
+    "name": "typicode",
+    "bio": "Software developer and tech enthusiast"
+  }
+}
