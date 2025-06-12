@@ -2,11 +2,11 @@
 import { usePosts } from "@/hooks/usePosts";
 
 export default function PostPage() {
-  const { data, isLoading, error } = usePosts();
+  const { data, isPending, error } = usePosts();
 
-  if (isLoading) return <p> Loading ... </p>;
+  if (isPending) return <p> Loading ...</p>;
   if (error) return <p>Error loading posts: {(error as Error).message}</p>;
-  console.log("fetched posts: ", data)
+  // console.log("fetched posts: ", data)
 
   return (
     <div>
@@ -15,7 +15,7 @@ export default function PostPage() {
         {data.map((post: any) => (
           <li key={post.id}>
             <strong>{post.title}</strong>
-            <p>{post.body}</p>
+            <p>{post.views}</p>
           </li>
         ))}
       </ul>
