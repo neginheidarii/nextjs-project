@@ -2,9 +2,9 @@
 import { usePosts } from "@/hooks/usePosts";
 
 export default function PostPage() {
-  const { data, isPending, error } = usePosts();
+  const { data, isLoading, error } = usePosts();
 
-  if (isPending) return <p> Loading ...</p>;
+  if (isLoading) return <p> Loading ...</p>;
   if (error) return <p>Error loading posts: {(error as Error).message}</p>;
   // console.log("fetched posts: ", data)
 
