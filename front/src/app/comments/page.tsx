@@ -1,41 +1,73 @@
-"use client";
-import { useComments } from "@/hooks/useComments";
-import { usePosts } from "@/hooks/usePosts";
+'use client';
+
+import { useEffect } from 'react';
+import { useComments } from '@/hooks/useComments';
+import { usePosts } from '@/hooks/usePosts';
+import { usePostStore } from '../store/usePostStore';
 
 export default function CommentPage() {
   const {
     data: postData,
-    isLoading: postLodading,
+    isLoading: postLoading,
     error: postError,
   } = usePosts();
 
-  const postId = postData?.[0]?.id;
+  const posts = usePostStore((s) => s.posts);
+  const setPosts = usePostStore((s) => s.setPosts);
+  const selectedPost = usePostStore((s) => s.selectedPost);
+  const selectPost = usePostStore((s) => s.selectPost);
+
+  // Save fetched posts to Zustand
+  useEffect(() => {
+    if (postData) {
+      setPosts(postData);
+    }
+  }, [postData, setPosts]);
+
+  // Get comments for the selected post
+  const postId = selectedPost?.id;
   const {
     data: commentData,
     isLoading: commentLoading,
-    error: errorLoading,
-  } = useComments(postId);
+    error: commentError,
+  } = useComments(postId || '');
 
-  if (postLodading || commentLoading) {
+  if (postLoading || commentLoading) {
     return <p>Loading...</p>;
   }
-  if (postError || errorLoading) {
+
+  if (postError || commentError) {
     return <p>Error loading data.</p>;
   }
 
-  // Safety check: make sure commentData is an array
   if (!Array.isArray(commentData)) {
-    return <p>No comments found or wrong format.</p>;
+    return <p>No comments found or data is not an array.</p>;
   }
+
   return (
     <div>
-      <h1>Post: {postData?.[0]?.title}</h1>
-      <h2>Comments: </h2>
+      <h1>All Posts</h1>
       <ul>
-        {commentData.map((comment: any) => (
-          <li key={comment.id}>{comment.text}</li>
+        {posts.map((post) => (
+          <li key={post.id}>
+            <button onClick={() => selectPost(post)}>
+              {post.title}
+            </button>
+          </li>
         ))}
       </ul>
+
+      {selectedPost && (
+        <>
+          <h2>Selected: {selectedPost.title}</h2>
+          <h3>Comments:</h3>
+          <ul>
+            {commentData.map((c) => (
+              <li key={c.id}>{c.text}</li>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 }
